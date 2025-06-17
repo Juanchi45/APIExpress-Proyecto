@@ -1,0 +1,48 @@
+### obtener todos los characters
+GET http://localhost:3000/api/characters
+
+### obtener un character
+GET http://localhost:3000/api/characters/a02b91bc-3769-4221-beb1-d7a3aeba7dad
+
+### crear un nuevo character
+POST http://localhost:3000/api/characters/
+//Indica que el contenido que se va enviar es .json
+Content-Type: application/json
+
+//datos del nuevo character
+{
+  "name": "Ellie Williams",
+  "characterClass": "Survivor",
+  "infected": true,
+  "hp": 100,
+  "attack": 10,
+  "items": ["Pistol","Knife"]
+}
+
+
+//La diferencia entre ambas es que PUT es idempotente, es decir, no importan cuantas veces o en que momento se ejecute, el resultado va a ser el mismo. 
+//PATCH en cambio, esto no es necesario, puede ser idempotente, pero no es un requisito. 
+//PUT se utiliza para modificaciones completas, mientras que el PATCH se utiliza para modificar un subconjunto de los atributos.
+### modificar un character (PUT Y PATCH)
+PUT http://localhost:3000/api/characters/a02b91bc-3769-4221-beb1-d7a3aeba7dad
+Content-Type: application/json
+
+{
+  "name": "Joel Miller",
+  "characterClass": "Survivor",
+  "infected": true,
+  "hp": 0,
+  "attack": 5,
+  "items": ["Pistol","Shotgun","Hunt Rifle"]
+}
+//modifica un recurso completo e idempotente
+
+### modificar un character (PUT Y PATCH)
+PATCH http://localhost:3000/api/characters/a02b91bc-3769-4221-beb1-d7a3aeba7dad
+Content-Type: application/json
+
+{
+  "infected": true,
+  "hp": 25
+}
+//solamente se ponen los atributos que se quieren modificar
